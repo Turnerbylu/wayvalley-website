@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wayvalley — Donde tu inversión se convierte en legado</title>
+  <meta name="description" content="Wayvalley: holding corporativo que ofrece modelos de negocio listos para invertir en Paraguay. Diseño, estrategia y dirección para negocios de alto nivel." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --beige:#F5F2EB;
+      --stone:#8A8A8A;
+      --navy:#0D1B2A;
+      --gold:#C9A44C; /* metallic gold detail */
+      --black:#0A0A0A;
+      --white:#FFFFFF;
+    }
+
+    /* Reset / Base */
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0; background:var(--beige); color:var(--navy); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height:1.6}
+    img{max-width:100%; display:block}
+    a{color:inherit; text-decoration:none}
+
+    /* Typography */
+    .display{font-family:"Playfair Display", serif; letter-spacing:.2px}
+    h1,h2,h3{font-family:"Playfair Display", serif; margin:.2em 0 .4em; line-height:1.2}
+    h1{font-size:clamp(2.2rem,4vw,3.6rem)}
+    h2{font-size:clamp(1.6rem,2.6vw,2.4rem)}
+    h3{font-size:clamp(1.25rem,2vw,1.5rem)}
+    p{color:#1b2938; font-size:1rem}
+    .muted{color:var(--stone)}
+
+    /* Utilities */
+    .container{width:min(1200px, 92vw); margin:0 auto}
+    .grid{display:grid; gap:1.2rem}
+    .btn{appearance:none; border:0; cursor:pointer; padding:.95rem 1.25rem; border-radius:999px; font-weight:600; letter-spacing:.2px; display:inline-flex; align-items:center; gap:.6rem; transition:transform .2s ease, box-shadow .2s ease, background .2s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--gold); color:var(--navy); box-shadow:0 6px 20px rgba(201,164,76,.25)}
+    .btn-primary:hover{box-shadow:0 10px 30px rgba(201,164,76,.35)}
+    .btn-outline{background:transparent; color:var(--navy); border:1.5px solid var(--navy)}
+    .btn-dark{background:var(--navy); color:var(--beige)}
+    .tag{display:inline-block; padding:.35rem .75rem; border-radius:999px; font-size:.82rem; border:1px solid rgba(13,27,42,.18); color:var(--navy); background:rgba(255,255,255,.5); backdrop-filter: blur(6px)}
+
+    /* Navbar */
+    .navbar{position:sticky; top:0; z-index:1000; backdrop-filter:saturate(180%) blur(8px); background:rgba(245,242,235,.6); border-bottom:1px solid rgba(13,27,42,.06); transition:background .3s ease, box-shadow .3s ease}
+    .navbar.scrolled{background:rgba(245,242,235,.92); box-shadow:0 10px 30px rgba(13,27,42,.06)}
+    .nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:.8rem 0}
+    .brand{display:flex; align-items:center; gap:.65rem; font-weight:800; letter-spacing:.6px}
+    .brand-mark{width:34px; height:34px; border-radius:10px; background:linear-gradient(160deg, #F7E7B1, #C9A44C 60%, #9D7B2A); box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 4px 12px rgba(201,164,76,.35)}
+    .brand span{font-family:"Playfair Display", serif}
+    .nav{display:flex; gap:1.1rem; align-items:center; font-weight:600}
+    .nav a{opacity:.85}
+    .nav a:hover{opacity:1}
+    .nav-cta{margin-left:.5rem}
+
+    /* Hero */
+    .hero{position:relative; min-height:84vh; display:grid; place-items:center; overflow:hidden; background:var(--black)}
+    .hero-media{position:absolute; inset:0; z-index:0}
+    .hero-media .slide{position:absolute; inset:0; background-position:center; background-size:cover; opacity:0; transition:opacity 1s ease}
+    .hero-media .slide.active{opacity:.9}
+    .hero-overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(13,27,42,.55), rgba(13,27,42,.6))}
+    .hero-content{position:relative; z-index:2; color:var(--beige); text-align:center; padding:3rem 1.2rem}
+    .hero h1{font-weight:800}
+    .hero p{max-width:820px; margin:0 auto 1.4rem; font-size:1.1rem; color:#EAE6DA}
+    .hero-actions{display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap}
+
+    /* Categories Carousel */
+    .section{padding:70px 0}
+    .section-header{display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; margin-bottom:1.1rem}
+    .carousel{position:relative}
+    .track{display:flex; gap:1rem; overflow:auto; scroll-snap-type:x mandatory; padding-bottom:.5rem}
+    .track::-webkit-scrollbar{height:8px}
+    .track::-webkit-scrollbar-thumb{background:rgba(13,27,42,.25); border-radius:8px}
+    .card{min-width:300px; width:340px; aspect-ratio:4/5; position:relative; border-radius:18px; overflow:hidden; scroll-snap-align:start; background:#ddd}
+    .card .bg{position:absolute; inset:0; background-position:center; background-size:cover; transform:scale(1.02); transition:transform .6s ease}
+    .card:hover .bg{transform:scale(1.07)}
+    .card::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(13,27,42,.5), rgba(13,27,42,.05))}
+    .card-content{position:absolute; inset:auto 0 0 0; padding:1rem; color:var(--beige); z-index:2}
+    .card-title{font-weight:700; font-family:"Playfair Display", serif; font-size:1.2rem}
+    .hover-reveal{position:absolute; inset:0; background:rgba(13,27,42,.72); color:var(--beige); opacity:0; transition:opacity .3s ease; display:grid; place-items:center; text-align:center; padding:1rem}
+    .card:hover .hover-reveal{opacity:1}
+    .carousel-btn{position:absolute; top:50%; transform:translateY(-50%); border:0; background:rgba(245,242,235,.85); box-shadow:0 6px 20px rgba(13,27,42,.15); width:42px; height:42px; border-radius:999px; display:grid; place-items:center; cursor:pointer}
+    .carousel-btn:hover{background:var(--white)}
+    .carousel-btn.prev{left:-8px}
+    .carousel-btn.next{right:-8px}
+
+    /* Sobre Wayvalley */
+    .about{display:grid; grid-template-columns:1.1fr .9fr; gap:1.6rem}
+    .about .panel{border-radius:20px; overflow:hidden; background:#eee; min-height:360px}
+    .about .image{background-size:cover; background-position:center; filter:grayscale(10%)}
+    .about .copy{background:var(--white); padding:2rem}
+
+    /* Destacados */
+    .cards{grid-template-columns:repeat(12, 1fr)}
+    .model-card{grid-column:span 6; background:var(--white); border-radius:18px; overflow:hidden; box-shadow:0 10px 30px rgba(13,27,42,.06); transition:transform .35s ease, box-shadow .35s ease}
+    .model-card:hover{transform:translateY(-4px); box-shadow:0 18px 40px rgba(13,27,42,.12)}
+    .model-card .thumb{aspect-ratio:16/10; background-size:cover; background-position:center; transition:transform .6s ease}
+    .model-card:hover .thumb{transform:scale(1.03)}
+    .model-card .meta{padding:1.2rem}
+
+    /* Cómo trabajamos */
+    .timeline{display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; counter-reset:step}
+    .step{background:var(--white); border-radius:16px; padding:1.2rem; box-shadow:0 10px 30px rgba(13,27,42,.06); position:relative}
+    .step:before{counter-increment:step; content:counter(step); position:absolute; top:-14px; left:-14px; width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background:var(--gold); color:var(--navy); font-weight:800}
+    .step h3{margin-top:.2rem}
+
+    /* Testimonios */
+    .testimonial{background:var(--navy); color:var(--beige); border-radius:20px; overflow:hidden; position:relative}
+    .testimonial .track{scroll-snap-type:x mandatory}
+    .testimonial-card{min-width:320px; width:420px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:1.2rem}
+    .quote{font-family:"Playfair Display", serif; font-size:1.1rem}
+    .client{display:flex; align-items:center; gap:.8rem; margin-top:1rem; opacity:.9}
+    .avatar{width:42px; height:42px; border-radius:50%; background:#555; filter:grayscale(100%)}
+
+    /* CTA */
+    .cta{position:relative; border-radius:22px; overflow:hidden; color:var(--beige)}
+    .cta .bg{position:absolute; inset:0; background-size:cover; background-position:center; filter:contrast(105%) saturate(105%)}
+    .cta::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(13,27,42,.55), rgba(13,27,42,.75))}
+    .cta .inner{position:relative; z-index:2; padding:3.2rem 1.2rem; text-align:center}
+
+    /* Blog */
+    .blog{grid-template-columns:repeat(3, 1fr)}
+    .blog-card{background:var(--white); border-radius:16px; overflow:hidden; box-shadow:0 12px 30px rgba(13,27,42,.07)}
+    .blog-card .thumb{aspect-ratio:16/9; background-size:cover; background-position:center}
+    .blog-card .meta{padding:1rem}
+
+    /* Contacto */
+    .contact{display:grid; grid-template-columns:1fr 1fr; gap:1.4rem}
+    form{display:grid; gap:.8rem}
+    input, textarea{width:100%; padding:.9rem 1rem; border:1px solid rgba(13,27,42,.15); border-radius:12px; background:#fff; font-family:inherit}
+    textarea{min-height:140px}
+    .contact-aside{background:#fff; border-radius:16px; padding:1.2rem; box-shadow:0 10px 30px rgba(13,27,42,.06)}
+    .map{border:0; width:100%; height:240px; filter:grayscale(100%) contrast(105%); border-radius:12px}
+
+    /* Footer */
+    footer{background:var(--navy); color:var(--beige)}
+    .footer-top{padding:40px 0; border-bottom:1px solid rgba(255,255,255,.08)}
+    .footer-bottom{padding:18px 0; font-size:.9rem; color:#C9D6DF}
+    .footer-grid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:1.2rem}
+    .logo-gold{display:flex; align-items:center; gap:.7rem}
+    .logo-gold .brand-mark{background:linear-gradient(160deg, #F7E7B1, #C9A44C 60%, #9D7B2A)}
+
+    /* Animations */
+    .reveal{opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.visible{opacity:1; transform:none}
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .about{grid-template-columns:1fr}
+      .timeline{grid-template-columns:repeat(2,1fr)}
+      .blog{grid-template-columns:1fr 1fr}
+      .contact{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .model-card{grid-column:span 12}
+    }
+    @media (max-width: 640px){
+      .nav{display:none}
+      .blog{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio" aria-label="Wayvalley">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Wayvalley</span>
+      </a>
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#modelos">Modelos de Negocio</a>
+        <a href="#metodo">Cómo trabajamos</a>
+        <a href="#sobre">Sobre nosotros</a>
+        <a href="#blog">Blog</a>
+        <a href="#contacto">Contacto</a>
+        <a class="btn btn-primary nav-cta" href="#modelos">Ver modelos de negocio</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio" aria-label="Hero">
+    <div class="hero-media" aria-hidden="true">
+      <!-- Slider background images (renders hiperrealistas) -->
+      <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1582582494700-0ab4a0b3dba9?q=80&w=1920&auto=format&fit=crop');"></div>
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1920&auto=format&fit=crop');"></div>
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1616486886892-3b2d5b2b4f18?q=80&w=1920&auto=format&fit=crop');"></div>
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1520732641349-88292e1b13e0?q=80&w=1920&auto=format&fit=crop');"></div>
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-content container reveal">
+      <span class="tag">Holding de inversión — Paraguay</span>
+      <h1 class="display">Wayvalley: Donde tu inversión se convierte en legado</h1>
+      <p>Modelos de negocio listos para ejecutar con <strong>diseño</strong>, <strong>estrategia</strong> y <strong>dirección</strong>. Experiencias comerciales arquitectónicamente memorables y performance empresarial de alto nivel.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#modelos">Descubrir modelos de negocio</a>
+        <a class="btn btn-outline" href="#contacto">Agendar asesoría</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORÍAS -->
+  <section class="section" id="categorias">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="display">Modelos por categoría</h2>
+        <div>
+          <button class="carousel-btn prev" data-target="#catTrack" aria-label="Anterior">&#10094;</button>
+          <button class="carousel-btn next" data-target="#catTrack" aria-label="Siguiente">&#10095;</button>
+        </div>
+      </div>
+      <div class="carousel">
+        <div class="track" id="catTrack">
+          <!-- 1 Gastronomía -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=1500&auto=format&fit=crop');"></div>
+            <div class="hover-reveal">
+              <div>
+                <h3 class="display" style="margin:.2rem 0">Gastronomía</h3>
+                <p>Fachadas inmersivas y hornos a la vista. Performance y ticket promedio elevados.</p>
+                <a class="btn btn-primary" href="#modelos">Ver concepto</a>
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="card-title">Gastronomía</div>
+            </div>
+          </article>
+          <!-- 2 Cafetería -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=1500&auto=format&fit=crop');"></div>
+            <div class="hover-reveal">
+              <div>
+                <h3 class="display" style="margin:.2rem 0">Cafetería</h3>
+                <p>Interiores instagrameables, flujos optimizados y bebidas de autor.</p>
+                <a class="btn btn-primary" href="#modelos">Ver concepto</a>
+              </div>
+            </div>
+            <div class="card-content"><div class="card-title">Cafetería</div></div>
+          </article>
+          <!-- 3 Belleza -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1500&auto=format&fit=crop');"></div>
+            <div class="hover-reveal">
+              <div>
+                <h3 class="display" style="margin:.2rem 0">Belleza</h3>
+                <p>Salones con luz tenue, materiales nobles y experiencia boutique.</p>
+                <a class="btn btn-primary" href="#modelos">Ver concepto</a>
+              </div>
+            </div>
+            <div class="card-content"><div class="card-title">Belleza</div></div>
+          </article>
+          <!-- 4 Moda -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1523380744952-b7d081131bd1?q=80&w=1500&auto=format&fit=crop');"></div>
+            <div class="hover-reveal">
+              <div>
+                <h3 class="display" style="margin:.2rem 0">Moda</h3>
+                <p>Boutiques arquitectónicas, iluminación escultórica y VM con intención.</p>
+                <a class="btn btn-primary" href="#modelos">Ver concepto</a>
+              </div>
+            </div>
+            <div class="card-content"><div class="card-title">Moda</div></div>
+          </article>
+          <!-- 5 Custom -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1549152256-1f73a3a3a3c4?q=80&w=1500&auto=format&fit=crop');"></div>
+            <div class="hover-reveal">
+              <div>
+                <h3 class="display" style="margin:.2rem 0">Custom</h3>
+                <p>Conceptos a medida. Prototipado y dirección integral de ejecución.</p>
+                <a class="btn btn-primary" href="#modelos">Ver concepto</a>
+              </div>
+            </div>
+            <div class="card-content"><div class="card-title">Custom</div></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE WAYVALLEY -->
+  <section class="section" id="sobre">
+    <div class="container about">
+      <div class="panel image reveal" style="background-image:url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop');"></div>
+      <div class="panel copy reveal">
+        <span class="tag">Sobre Wayvalley</span>
+        <h2 class="display">Estrategia, branding y dirección con sello corporativo</h2>
+        <p>Wayvalley es un <strong>holding</strong> que integra arquitectura comercial, branding y dirección estratégica para crear <em>modelos de negocio listos para ejecutar</em> en Paraguay. Diseñamos experiencias memorables que elevan el ticket promedio, optimizan operaciones y consolidan <strong>legado</strong> para inversionistas y emprendedores.</p>
+        <p class="muted">Confianza, sofisticación y visión de largo plazo. Eso es Wayvalley.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTACADOS -->
+  <section class="section" id="modelos">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="display">Modelos de Negocio Destacados</h2>
+        <a class="btn btn-dark" href="#contacto">Solicitar dossier</a>
+      </div>
+      <div class="grid cards">
+        <article class="model-card reveal">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1533777419517-3e4017e2e15b?q=80&w=1600&auto=format&fit=crop');"></div>
+          <div class="meta">
+            <h3>Pizzería Experiencial</h3>
+            <p>Horno protagonista, storytelling de origen y ritual de servicio para alto share social.</p>
+            <a class="btn btn-primary" href="#">Ver modelo completo</a>
+          </div>
+        </article>
+        <article class="model-card reveal">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop');"></div>
+          <div class="meta">
+            <h3>Cafetería Signature</h3>
+            <p>Bar de autor, barras fotogénicas y flujo operativo de alta rotación.</p>
+            <a class="btn btn-primary" href="#">Ver modelo completo</a>
+          </div>
+        </article>
+        <article class="model-card reveal">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1556228720-da4e85f25f57?q=80&w=1600&auto=format&fit=crop');"></div>
+          <div class="meta">
+            <h3>Salón Boutique</h3>
+            <p>Sensaciones cálidas, iluminación tenue y cabinas para experiencia premium.</p>
+            <a class="btn btn-primary" href="#">Ver modelo completo</a>
+          </div>
+        </article>
+        <article class="model-card reveal">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop');"></div>
+          <div class="meta">
+            <h3>Boutique Arquitectónica</h3>
+            <p>Materialidad noble, VM escultural y circulaciones con intención de compra.</p>
+            <a class="btn btn-primary" href="#">Ver modelo completo</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO TRABAJAMOS -->
+  <section class="section" id="metodo">
+    <div class="container">
+      <h2 class="display reveal">Cómo trabajamos</h2>
+      <div class="timeline">
+        <div class="step reveal">
+          <h3>Briefing y asesoría inicial</h3>
+          <p>Diagnóstico, alcance y estrategia de inversión. Alineamos visión, plazos y KPIs.</p>
+        </div>
+        <div class="step reveal">
+          <h3>Diseño arquitectónico y branding</h3>
+          <p>Renders hiperrealistas, identidad visual y experiencia de cliente end-to-end.</p>
+        </div>
+        <div class="step reveal">
+          <h3>Validación y ejecución</h3>
+          <p>Prototipado, presupuesto, cronograma y dirección de obra/implementación.</p>
+        </div>
+        <div class="step reveal">
+          <h3>Acompañamiento estratégico</h3>
+          <p>Onboarding de equipo, apertura y seguimiento a performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="section">
+    <div class="container testimonial">
+      <div class="section-header" style="padding:1rem 1rem 0">
+        <h2 class="display">Casos de Éxito</h2>
+        <div>
+          <button class="carousel-btn prev" data-target="#testiTrack" aria-label="Anterior">&#10094;</button>
+          <button class="carousel-btn next" data-target="#testiTrack" aria-label="Siguiente">&#10095;</button>
+        </div>
+      </div>
+      <div class="track" id="testiTrack" style="padding:1rem">
+        <article class="testimonial-card">
+          <div class="quote">“Abrimos en 90 días con un modelo llave en mano. El diseño elevó el ticket en un 32%.”</div>
+          <div class="client"><div class="avatar"></div><div><strong>Mariana V.</strong><div class="muted">Pizzería Experiencial</div></div></div>
+        </article>
+        <article class="testimonial-card">
+          <div class="quote">“El enfoque en experiencia se tradujo en filas desde el día uno. Dirección impecable.”</div>
+          <div class="client"><div class="avatar"></div><div><strong>Diego R.</strong><div class="muted">Cafetería Signature</div></div></div>
+        </article>
+        <article class="testimonial-card">
+          <div class="quote">“Wayvalley entiende negocio y arquitectura. Resultado: marca con alma y números sólidos.”</div>
+          <div class="client"><div class="avatar"></div><div><strong>Valeria G.</strong><div class="muted">Salón Boutique</div></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA DESTACADO -->
+  <section class="section">
+    <div class="container cta" id="cta">
+      <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=2000&auto=format&fit=crop');"></div>
+      <div class="inner">
+        <h2 class="display">Construyamos juntos tu próximo negocio</h2>
+        <p class="muted" style="color:#E7E1D1">Arquitectura comercial premium, dirección estratégica y modelo listo para ejecutar.</p>
+        <div class="hero-actions" style="margin-top:.6rem">
+          <a class="btn btn-primary" href="#contacto">Agendar asesoría</a>
+          <a class="btn btn-outline" href="#modelos">Ver modelos de negocio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG PREVIEW -->
+  <section class="section" id="blog">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="display">Ideas y Tendencias</h2>
+        <a class="btn btn-outline" href="#">Visitar blog</a>
+      </div>
+      <div class="grid blog">
+        <article class="blog-card reveal">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=1600&auto=format&fit=crop');"></div>
+          <div class="meta">
+            <span class="tag">Branding</span>
+            <h3>Arquitectura como herramienta de marca</h3>
+            <p>Cómo la materialidad y la luz diseñan percepción y ticket promedio.</p>
+          </div>
+        </article>
+        <article class="blog-card reveal">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1600&auto=format&fit=crop');"></div>
+          <div class="meta">
+            <span class="tag">Inversión</span>
+            <h3>Modelos listos para ejecutar</h3>
+            <p>Velocidad de apertura y control de costos con dirección integral.</p>
+          </div>
+        </article>
+        <article class="blog-card reveal">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?q=80&w=1600&auto=format&fit=crop');"></div>
+          <div class="meta">
+            <span class="tag">Tendencias</span>
+            <h3>Experiencias instagrameables con propósito</h3>
+            <p>Criterios de diseño que convierten visitas en conversación orgánica.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section" id="contacto">
+    <div class="container contact">
+      <div>
+        <h2 class="display reveal">Contacto</h2>
+        <form class="reveal" onsubmit="event.preventDefault(); alert('¡Gracias! Nos pondremos en contacto.');">
+          <input type="text" name="nombre" placeholder="Nombre" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <textarea name="mensaje" placeholder="Mensaje" required></textarea>
+          <div style="display:flex; gap:.6rem; flex-wrap:wrap">
+            <button class="btn btn-primary" type="submit">Enviar</button>
+            <a class="btn btn-outline" href="mailto:hola@wayvalley.com">E-mail</a>
+            <a class="btn btn-outline" href="https://wa.me/595000000000" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </form>
+      </div>
+      <aside class="contact-aside reveal">
+        <h3>Oficina</h3>
+        <p>Asunción, Paraguay<br>De lunes a viernes — 9:00 a 18:00</p>
+        <iframe class="map" title="Mapa Wayvalley" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3579.5388285315415!2d-57.633!3d-25.286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da9305e2d4b6f%3A0x4a8e1e8d83d!2sAsunci%C3%B3n!5e0!3m2!1ses!2spy!4v1689988888888"></iframe>
+      </aside>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-top">
+      <div class="footer-grid">
+        <div>
+          <div class="logo-gold brand"><span class="brand-mark"></span><span>Wayvalley</span></div>
+          <p class="muted" style="margin-top:.4rem">Holding corporativo: modelos de negocio listos para invertir.</p>
+        </div>
+        <div>
+          <strong>Navegación</strong>
+          <ul style="list-style:none; padding:0; margin:.6rem 0 0; display:grid; gap:.35rem">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#modelos">Modelos</a></li>
+            <li><a href="#metodo">Cómo trabajamos</a></li>
+            <li><a href="#sobre">Sobre nosotros</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <strong>Legal</strong>
+          <ul style="list-style:none; padding:0; margin:.6rem 0 0; display:grid; gap:.35rem">
+            <li><a href="#">Términos</a></li>
+            <li><a href="#">Privacidad</a></li>
+            <li>© Wayvalley 2025 — Todos los derechos reservados.</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Redes</strong>
+          <div style="display:flex; gap:.6rem; margin-top:.6rem">
+            <a class="btn btn-outline" href="#" aria-label="LinkedIn">LinkedIn</a>
+            <a class="btn btn-outline" href="#" aria-label="Instagram">Instagram</a>
+            <a class="btn btn-outline" href="https://wa.me/595000000000" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <div style="display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap">
+        <div>© Wayvalley 2025</div>
+        <div class="muted">Diseño corporativo con estética arquitectónica premium.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky navbar background on scroll
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => {
+      if(window.scrollY>10){ navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
+    };
+    document.addEventListener('scroll', onScroll);
+    onScroll();
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+    }, {threshold:.2});
+    revealEls.forEach(el=>io.observe(el));
+
+    // Hero slider
+    const slides = document.querySelectorAll('.hero-media .slide');
+    let current = 0;
+    setInterval(()=>{
+      slides[current].classList.remove('active');
+      current = (current+1)%slides.length;
+      slides[current].classList.add('active');
+    }, 5000);
+
+    // Generic horizontal carousel controls
+    document.querySelectorAll('.carousel-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const track = document.querySelector(btn.dataset.target);
+        const dir = btn.classList.contains('next') ? 1 : -1;
+        track.scrollBy({left: dir * (track.clientWidth*0.8), behavior:'smooth'});
+      });
+    });
+  </script>
+</body>
+</html>
